@@ -1,0 +1,61 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block html %}
+  {% block head %}
+    {% block title %}
+      <title>Smart Office IoT application</title>
+    {% endblock %}
+
+    {% block styles %}
+      {{ super() }}
+      <link rel="stylesheet" href="{{url_for('.static', filename='style.css')}}">
+    {% endblock %}
+  {% endblock %}
+
+  {% block body %}
+    {% block navbar %}
+      <nav class="navbar navbar-fixed-top">
+          <div class="container-fluid">
+              <div class="navbar-header">
+                  <a class="navbar-brand" href="/">Smart Office</a>
+                  <a class="navbar-brand" href="/compare">Compare Face</a>
+              </div>
+          </div>
+      </nav>
+    {% endblock %}
+
+    {% block content %}
+        <center>
+            <div class="jumbotron">
+                <h1>Smart Office</h1>
+            </div>
+        </center>
+        <div class="">
+            <center>
+                 <div class="form-group">
+                    <form action="/upload" method="POST" enctype="multipart/form-data">
+                        <label for="exampleInputFile">Upload your Photo to Register Face</label>
+                        <input style="max-width: 30%" type="file" class="form-control" name="userimage" required>
+                        <br>
+                        <label for="dtp_input1">Pick a patient to register</label>
+                            <select style="max-width: 30%" class="form-control" name="patientemail" required>
+                                {% for value in patient_list %}
+                                    <option value="{{ value.email }}">{{ value.first_name }}</option>
+                                {% endfor %}
+                            </select>
+                         <br>
+                        <button type="submit" class="btn btn-primary btn-lg">Register Patient's Face</button>
+                    </form>
+                 </div>
+            </center>
+        </div>
+
+    {% endblock %}
+
+  {% block scripts %}
+    {{ super() }}
+
+  {% endblock %}
+
+  {% endblock %}
+{% endblock %}
